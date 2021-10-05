@@ -1,35 +1,82 @@
 package config
 
 import (
+	"database/sql"
 	"fmt"
+	"ginWeb/app/model"
+	"os"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
+	"gorm.io/gorm/schema"
 )
 
-const DB_USERNAME = "root"
-const DB_PASSWORD = ""
-const DB_NAME = "sempoa_warehouse"
-const DB_HOST = "127.0.0.1"
-const DB_PORT = "3306"
+var db *gorm.DB
 
-var Db *gorm.DB
-
-func InitDb() *gorm.DB {
-	Db = connectDB()
-	return Db
-}
-
-func connectDB() *gorm.DB {
-	var err error
-	dsn := DB_USERNAME + ":" + DB_PASSWORD + "@tcp" + "(" + DB_HOST + ":" + DB_PORT + ")/" + DB_NAME + "?" + "parseTime=true&loc=Local"
-
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+func SetupDatabaseConnection() *gorm.DB {
+	err := godotenv.Load()
 
 	if err != nil {
-		fmt.Println(err)
-		return nil
+		panic("Failed to load enf file!")
 	}
 
+	dbUsername := os.Getenv("DB_USERNAME")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbPort := os.Getenv("DB_PORT")
+	dbHost := os.Getenv("DB_HOST")
+	dbName := os.Getenv("DB_NAME")
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", dbUsername, dbPassword, dbHost, dbPort, dbName)
+
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("Failed to create a connection to database")
+	}
+	//nanti kita isi modelnya di sini
+	db.AutoMigrate(&model.Warehouse{})
 	return db
+}
+
+func CloseDatabaseConnection(db *gorm.DB) {
+	dbSQL, err := db.DB()
+	if err != nil {
+		panic("Failed to close connection from database")
+	}
+	dbSQL.Close()
+}
+
+type Migrator interface {
+	// AutoMigrate
+	AutoMigrate(dst ...interface{}) error
+
+	// Database
+	CurrentDatabase() string
+	FullDataTypeOf(*schema.Field) clause.Expr
+
+	// Tables
+	CreateTable(dst ...interface{}) error
+	DropTable(dst ...interface{}) error
+	HasTable(dst interface{}) bool
+	RenameTable(oldName, newName interface{}) error
+
+	// Columns
+	AddColumn(dst interface{}, field string) error
+	DropColumn(dst interface{}, field string) error
+	AlterColumn(dst interface{}, field string) error
+	HasColumn(dst interface{}, field string) bool
+	RenameColumn(dst interface{}, oldName, field string) error
+	MigrateColumn(dst interface{}, field *schema.Field, columnType *sql.ColumnType) error
+	ColumnTypes(dst interface{}) ([]*sql.ColumnType, error)
+
+	// Constraints
+	CreateConstraint(dst interface{}, name string) error
+	DropConstraint(dst interface{}, name string) error
+	HasConstraint(dst interface{}, name string) bool
+
+	// Indexes
+	CreateIndex(dst interface{}, name string) error
+	DropIndex(dst interface{}, name string) error
+	HasIndex(dst interface{}, name string) bool
+	RenameIndex(dst interface{}, oldName, newName string) error
 }
