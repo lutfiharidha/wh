@@ -37,38 +37,36 @@ func ProductSeeder() {
 	})
 }
 
-// func ZoneSeeder() {
-// 	warehouse := model.Warehouse{}
-// 	db.Select("id").Last(&warehouse)
+func ZoneSeeder() {
+	warehouse := model.Warehouse{}
+	db.Select("id").Last(&warehouse)
 
-// 	db.Create(&model.Zone{
-// 		ID:          uuid.New(),
-// 		ZoneName:    "Food",
-// 		WarehouseID: warehouse.ID,
-// 	})
-// }
+	db.Create(&model.Zone{
+		ID:          uuid.New(),
+		ZoneName:    "Food",
+		WarehouseID: warehouse.ID,
+	})
+}
 
-// func RackLocationSeeder() {
-// 	zone := model.Zone{}
-// 	db.Select("id").Last(&zone)
+func RackSeeder() {
+	zone := model.Zone{}
+	db.Select("id").Last(&zone)
 
-// 	db.Create(&model.RackLocation{
-// 		ID:       uuid.New(),
-// 		ZoneID:   zone.ID,
-// 		Aisle:    "01",
-// 		Rack:     "02",
-// 		Level:    "1",
-// 		Position: "1",
-// 	})
-// }
+	db.Create(&model.Rack{
+		ID:       uuid.New(),
+		ZoneID:   zone.ID,
+		Aisle:    "01",
+		Rack:     "02",
+		Level:    "1",
+		Position: "1",
+	})
+}
 
 // func StockSeeder() {
 // 	location := model.RackLocation{}
 // 	db.Select("id").Last(&location)
-
 // 	product := model.Product{}
 // 	db.Select("id").Last(&product)
-
 // 	db.Create(&model.Stock{
 // 		ID:             uuid.New(),
 // 		ProductID:      product.ID,
@@ -77,10 +75,10 @@ func ProductSeeder() {
 // 	})
 // }
 
-func InitDbialSeeder() {
+func InitialDBSeeder() {
 	WarehouseSeeder()
 	ProductSeeder()
-	// ZoneSeeder()
-	// RackLocationSeeder()
+	ZoneSeeder()
+	RackSeeder()
 	// StockSeeder()
 }

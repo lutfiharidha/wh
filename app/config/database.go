@@ -3,7 +3,6 @@ package config
 import (
 	"database/sql"
 	"fmt"
-	"ginWeb/app/model"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -33,8 +32,8 @@ func SetupDatabaseConnection() *gorm.DB {
 	if err != nil {
 		panic("Failed to create a connection to database")
 	}
-	//nanti kita isi modelnya di sini
-	db.AutoMigrate(&model.Warehouse{})
+	// //nanti kita isi modelnya di sini
+	// db.AutoMigrate(&model.Warehouse{})
 	return db
 }
 
