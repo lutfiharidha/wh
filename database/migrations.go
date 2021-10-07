@@ -23,4 +23,7 @@ func InitialMigration() {
 
 	db.Migrator().DropTable(&model.Rack{})
 	db.Migrator().CreateTable(&model.Rack{})
+
+	db.Migrator().DropTable(&model.ProductLocation{})
+	db.Migrator().CreateTable(&model.ProductLocation{})
 }

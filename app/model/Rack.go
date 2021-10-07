@@ -19,7 +19,7 @@ type Rack struct {
 	UpdatedAt time.Time      `gorm:"autoUpdateTime" json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index"  json:"deleted_at"`
 
-	Zone Zone `gorm:"foreignKey:ZoneID;constraint:onUpdate:CASCADE,onDelete:CASCADE" json:"zone"`
+	Zone *Zone `gorm:"foreignKey:ZoneID;constraint:onUpdate:CASCADE,onDelete:CASCADE" json:"zone"`
 }
 
 func (rack *Rack) BeforeCreate(tx *gorm.DB) (err error) {

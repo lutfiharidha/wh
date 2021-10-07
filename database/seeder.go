@@ -13,7 +13,7 @@ func WarehouseSeeder() {
 		// CompanyId:     "",
 		Owner:       "Lutfi Haridha",
 		PhoneNumber: "081376867436",
-		Status:      1,
+		Status:      "1",
 		Address:     "Jalan Kebon Raya No 90, Kel. Duri Kepa, Kec. Kebon Jeruk",
 		City:        "Jakarta Barat",
 		Country:     "Indonesia",
@@ -62,23 +62,23 @@ func RackSeeder() {
 	})
 }
 
-// func StockSeeder() {
-// 	location := model.RackLocation{}
-// 	db.Select("id").Last(&location)
-// 	product := model.Product{}
-// 	db.Select("id").Last(&product)
-// 	db.Create(&model.Stock{
-// 		ID:             uuid.New(),
-// 		ProductID:      product.ID,
-// 		RackLocationID: location.ID,
-// 		Stock:          10,
-// 	})
-// }
+func ProductLocationSeeder() {
+	location := model.Rack{}
+	db.Select("id").Last(&location)
+	product := model.Product{}
+	db.Select("id").Last(&product)
+	db.Create(&model.ProductLocation{
+		ID:        uuid.New(),
+		ProductID: product.ID,
+		RackID:    location.ID,
+		Stock:     10,
+	})
+}
 
 func InitialDBSeeder() {
 	WarehouseSeeder()
 	ProductSeeder()
 	ZoneSeeder()
 	RackSeeder()
-	// StockSeeder()
+	ProductLocationSeeder()
 }

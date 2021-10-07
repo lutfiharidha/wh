@@ -6,7 +6,7 @@ import (
 
 type RackUpdateDTO struct {
 	ID       uuid.UUID `json:"id" form:"id"`
-	ZoneID   uuid.UUID `json:"zone_id" form:"product_name" binding:"required"`
+	ZoneID   uuid.UUID `json:"zone_id" form:"zone_id" binding:"required"`
 	Aisle    string    `json:"aisle" form:"aisle"`
 	Rack     string    `json:"rack" form:"rack"`
 	Level    string    `json:"level" form:"level"`
@@ -15,7 +15,7 @@ type RackUpdateDTO struct {
 
 type RackCreateDTO struct {
 	ID       uuid.UUID `json:"id" form:"id"`
-	ZoneID   uuid.UUID `json:"zone_id" form:"product_name" binding:"required"`
+	ZoneID   uuid.UUID `json:"zone_id" form:"zone_id" binding:"required"`
 	Aisle    string    `json:"aisle" form:"aisle"`
 	Rack     string    `json:"rack" form:"rack"`
 	Level    string    `json:"level" form:"level"`

@@ -21,7 +21,6 @@ var (
 )
 
 func WarehouseRoute(route *gin.Engine) {
-
 	warehouseRoutes := route.Group("api/v1/warehouse")
 	{
 		warehouseRoutes.GET("/", warehouseController.All)

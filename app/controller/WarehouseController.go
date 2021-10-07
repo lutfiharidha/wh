@@ -35,6 +35,7 @@ func NewWarehouseController(warehouseServ service.WarehouseService) WarehouseCon
 func (c *warehouseController) All(context *gin.Context) {
 	var warehouses []model.Warehouse = c.warehouseService.All()
 	res := helper.BuildResponse(true, "OK", warehouses)
+	context.Writer.Header().Set("Content-Type", "application/json")
 	context.JSON(http.StatusOK, res)
 }
 
@@ -43,6 +44,7 @@ func (c *warehouseController) FindByID(context *gin.Context) {
 	var warehouse model.Warehouse = c.warehouseService.FindByID(id)
 	if (warehouse == model.Warehouse{}) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
+
 		context.JSON(http.StatusNotFound, res)
 	} else {
 		res := helper.BuildResponse(true, "OK", warehouse)

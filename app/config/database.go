@@ -34,6 +34,7 @@ func SetupDatabaseConnection() *gorm.DB {
 	}
 	// //nanti kita isi modelnya di sini
 	// db.AutoMigrate(&model.Warehouse{})
+
 	return db
 }
 

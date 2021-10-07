@@ -22,7 +22,7 @@ type Product struct {
 	UpdatedAt       time.Time      `gorm:"autoUpdateTime" json:"updated_at"`
 	DeletedAt       gorm.DeletedAt `gorm:"index"  json:"deleted_at"`
 
-	Warehouse Warehouse `gorm:"foreignKey:WarehouseID;constraint:onUpdate:CASCADE,onDelete:CASCADE" json:"warehouse"`
+	Warehouse *Warehouse `gorm:"foreignKey:WarehouseID;constraint:onUpdate:CASCADE,onDelete:CASCADE" json:"warehouse"`
 }
 
 func (product *Product) BeforeCreate(tx *gorm.DB) (err error) {
