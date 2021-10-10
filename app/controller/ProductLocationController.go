@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 type ProductLocationController interface {
@@ -76,7 +75,7 @@ func (c *productLocationController) Update(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		productLocationUpdateDTO.ID = uuid.MustParse(id)
+		productLocationUpdateDTO.ID = id
 		result := c.productLocationService.Update(productLocationUpdateDTO)
 		response := helper.BuildResponse(true, "OK", result)
 		context.JSON(http.StatusOK, response)
@@ -91,7 +90,7 @@ func (c *productLocationController) Delete(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		pl.ID = uuid.MustParse(id)
+		pl.ID = id
 		result := c.productLocationService.Delete(pl)
 		res := helper.BuildResponse(true, "Deleted", result)
 		context.JSON(http.StatusOK, res)
@@ -112,7 +111,7 @@ func (c *productLocationController) Restore(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		productLocationRestoreDTO.ID = uuid.MustParse(id)
+		productLocationRestoreDTO.ID = id
 		result := c.productLocationService.Restore(productLocationRestoreDTO)
 		response := helper.BuildResponse(true, "OK", result)
 		context.JSON(http.StatusOK, response)
@@ -127,7 +126,7 @@ func (c *productLocationController) DeletePermanent(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		pl.ID = uuid.MustParse(id)
+		pl.ID = id
 		c.productLocationService.DeletePermanent(pl)
 		res := helper.BuildResponse(true, "Deleted", helper.EmptyObj{})
 		context.JSON(http.StatusOK, res)

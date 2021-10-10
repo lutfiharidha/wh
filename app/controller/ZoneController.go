@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 type ZoneController interface {
@@ -76,7 +75,7 @@ func (c *zoneController) Update(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		zoneUpdateDTO.ID = uuid.MustParse(id)
+		zoneUpdateDTO.ID = id
 		result := c.zoneService.Update(zoneUpdateDTO)
 		response := helper.BuildResponse(true, "OK", result)
 		context.JSON(http.StatusOK, response)
@@ -91,7 +90,7 @@ func (c *zoneController) Delete(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		zone.ID = uuid.MustParse(id)
+		zone.ID = id
 		result := c.zoneService.Delete(zone)
 		res := helper.BuildResponse(true, "Deleted", result)
 		context.JSON(http.StatusOK, res)
@@ -112,7 +111,7 @@ func (c *zoneController) Restore(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		zoneRestoreDTO.ID = uuid.MustParse(id)
+		zoneRestoreDTO.ID = id
 		result := c.zoneService.Restore(zoneRestoreDTO)
 		response := helper.BuildResponse(true, "OK", result)
 		context.JSON(http.StatusOK, response)
@@ -127,7 +126,7 @@ func (c *zoneController) DeletePermanent(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		zone.ID = uuid.MustParse(id)
+		zone.ID = id
 		c.zoneService.DeletePermanent(zone)
 		res := helper.BuildResponse(true, "Deleted", helper.EmptyObj{})
 		context.JSON(http.StatusOK, res)

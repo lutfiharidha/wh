@@ -78,7 +78,7 @@ func (c *warehouseController) Update(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		warehouseUpdateDTO.ID = uuid.MustParse(id)
+		warehouseUpdateDTO.ID = id
 		result := c.warehouseService.Update(warehouseUpdateDTO)
 		response := helper.BuildResponse(true, "OK", result)
 		context.JSON(http.StatusOK, response)
@@ -93,7 +93,7 @@ func (c *warehouseController) Delete(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		warehouse.ID = uuid.MustParse(id)
+		warehouse.ID = id
 		c.warehouseService.Delete(warehouse)
 		res := helper.BuildResponse(true, "Deleted", helper.EmptyObj{})
 		context.JSON(http.StatusOK, res)
@@ -129,7 +129,7 @@ func (c *warehouseController) DeletePermanent(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		warehouse.ID = uuid.MustParse(id)
+		warehouse.ID = id
 		c.warehouseService.DeletePermanent(warehouse)
 		res := helper.BuildResponse(true, "Deleted", helper.EmptyObj{})
 		context.JSON(http.StatusOK, res)

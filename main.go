@@ -2,6 +2,7 @@ package main
 
 import (
 	"ginWeb/app/config"
+	"ginWeb/app/handler"
 	"ginWeb/router"
 
 	"github.com/gin-gonic/gin"
@@ -12,8 +13,7 @@ var db *gorm.DB = config.SetupDatabaseConnection()
 
 func main() {
 	defer config.CloseDatabaseConnection(db)
-	// database.InitialMigration()
-	// database.InitialDBSeeder()
+	handler.Command()
 	r := gin.New()
 	r.Use(config.CORSMiddleware())
 

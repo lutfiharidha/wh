@@ -8,7 +8,7 @@ import (
 
 func WarehouseSeeder() {
 	db.Create(&model.Warehouse{
-		ID:            uuid.New(),
+		ID:            uuid.New().String(),
 		WarehouseName: "Gudang Baju A",
 		// CompanyId:     "",
 		Owner:       "Lutfi Haridha",
@@ -26,7 +26,7 @@ func ProductSeeder() {
 	warehouses := model.Warehouse{}
 	db.Select("id").Last(&warehouses)
 	db.Create(&model.Product{
-		ID:          uuid.New(),
+		ID:          uuid.New().String(),
 		ProductName: "Baju Tidur",
 		WarehouseID: warehouses.ID,
 		SKU:         "pcs",
@@ -42,7 +42,7 @@ func ZoneSeeder() {
 	db.Select("id").Last(&warehouse)
 
 	db.Create(&model.Zone{
-		ID:          uuid.New(),
+		ID:          uuid.New().String(),
 		ZoneName:    "Food",
 		WarehouseID: warehouse.ID,
 	})
@@ -53,7 +53,7 @@ func RackSeeder() {
 	db.Select("id").Last(&zone)
 
 	db.Create(&model.Rack{
-		ID:       uuid.New(),
+		ID:       uuid.New().String(),
 		ZoneID:   zone.ID,
 		Aisle:    "01",
 		Rack:     "02",
@@ -68,7 +68,7 @@ func ProductLocationSeeder() {
 	product := model.Product{}
 	db.Select("id").Last(&product)
 	db.Create(&model.ProductLocation{
-		ID:        uuid.New(),
+		ID:        uuid.New().String(),
 		ProductID: product.ID,
 		RackID:    location.ID,
 		Stock:     10,

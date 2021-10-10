@@ -8,9 +8,9 @@ import (
 )
 
 type Warehouse struct {
-	ID            uuid.UUID      `gorm:"uniqueIndex" json:"id"`
+	ID            string         `gorm:"uniqueIndex" json:"id"`
 	WarehouseName string         `json:"warehouse_name" gorm:"not null"`
-	CompanyId     uuid.UUID      `json:"company_id"`
+	CompanyId     string         `json:"company_id"`
 	Owner         string         `json:"owner" gorm:"not null"`
 	PhoneNumber   string         `json:"phone_number" gorm:"not null"`
 	Status        string         `json:"status" gorm:"not null"`

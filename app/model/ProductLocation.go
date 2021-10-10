@@ -9,9 +9,9 @@ import (
 )
 
 type ProductLocation struct {
-	ID        uuid.UUID      `gorm:"uniqueIndex" json:"id"`
-	ProductID uuid.UUID      `gorm:"index;not null" json:"-"`
-	RackID    uuid.UUID      `gorm:"index;not null" json:"-" `
+	ID        string         `gorm:"uniqueIndex" json:"id"`
+	ProductID string         `gorm:"index;not null" json:"-"`
+	RackID    string         `gorm:"index;not null" json:"-" `
 	Stock     uint           `json:"stock" gorm:"not null"`
 	CreatedAt time.Time      `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt time.Time      `gorm:"autoUpdateTime" json:"updated_at"`

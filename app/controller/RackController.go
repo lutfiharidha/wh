@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 type RackController interface {
@@ -76,7 +75,7 @@ func (c *rackController) Update(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		rackUpdateDTO.ID = uuid.MustParse(id)
+		rackUpdateDTO.ID = id
 		result := c.rackService.Update(rackUpdateDTO)
 		response := helper.BuildResponse(true, "OK", result)
 		context.JSON(http.StatusOK, response)
@@ -91,7 +90,7 @@ func (c *rackController) Delete(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		rack.ID = uuid.MustParse(id)
+		rack.ID = id
 		result := c.rackService.Delete(rack)
 		res := helper.BuildResponse(true, "Deleted", result)
 		context.JSON(http.StatusOK, res)
@@ -112,7 +111,7 @@ func (c *rackController) Restore(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		rackRestoreDTO.ID = uuid.MustParse(id)
+		rackRestoreDTO.ID = id
 		result := c.rackService.Restore(rackRestoreDTO)
 		response := helper.BuildResponse(true, "OK", result)
 		context.JSON(http.StatusOK, response)
@@ -127,7 +126,7 @@ func (c *rackController) DeletePermanent(context *gin.Context) {
 		res := helper.BuildErrorResponse("Data not found", "No data with given id", helper.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		rack.ID = uuid.MustParse(id)
+		rack.ID = id
 		c.rackService.DeletePermanent(rack)
 		res := helper.BuildResponse(true, "Deleted", helper.EmptyObj{})
 		context.JSON(http.StatusOK, res)

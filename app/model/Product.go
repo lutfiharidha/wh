@@ -9,10 +9,10 @@ import (
 )
 
 type Product struct {
-	ID              uuid.UUID      `gorm:"uniqueIndex" json:"id"`
+	ID              string         `gorm:"uniqueIndex" json:"id"`
 	ProductName     string         `json:"product_name" gorm:"not null"`
-	WarehouseID     uuid.UUID      `gorm:"index;not null" json:"-"`
-	MasterProductID *uuid.UUID     `json:"master_product_id"`
+	WarehouseID     string         `gorm:"index;not null" json:"-"`
+	MasterProductID *string        `json:"master_product_id"`
 	SKU             string         `json:"sku" gorm:"not null"`
 	Description     string         `json:"description"`
 	Price           float32        `json:"price" gorm:"not null"`

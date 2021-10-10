@@ -9,8 +9,8 @@ import (
 )
 
 type Rack struct {
-	ID        uuid.UUID      `gorm:"uniqueIndex" json:"id"`
-	ZoneID    uuid.UUID      `gorm:"index" json:"zone_id"`
+	ID        string         `gorm:"uniqueIndex" json:"id"`
+	ZoneID    string         `gorm:"index" json:"zone_id"`
 	Aisle     string         `json:"aisle"`
 	Rack      string         `json:"rack"`
 	Level     string         `json:"level"`

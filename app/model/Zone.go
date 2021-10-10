@@ -9,9 +9,9 @@ import (
 )
 
 type Zone struct {
-	ID          uuid.UUID      `gorm:"uniqueIndex" json:"id"`
+	ID          string         `gorm:"uniqueIndex" json:"id"`
 	ZoneName    string         `json:"zone_name" gorm:"not null"`
-	WarehouseID uuid.UUID      `json:"-" gorm:"index; not null"`
+	WarehouseID string         `json:"-" gorm:"index; not null"`
 	CreatedAt   time.Time      `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt   time.Time      `gorm:"autoUpdateTime" json:"updated_at"`
 	DeletedAt   gorm.DeletedAt `gorm:"index"  json:"deleted_at"`
